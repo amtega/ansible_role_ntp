@@ -1,2 +1,23 @@
 ---
 # Role tasks
+- name: set timezone
+  timezone:
+    name: "{{ ntp_time_zone }}"
+
+- block:
+    - name: Configure ntp
+      template:
+        src: ntp.conf.j2
+        dest: "{{ ntp_config_file }}"
+
+    - name: Configure ntp init options
+      template:
+        src: ntpd_sysconfig.j2
+        dest: "{{ ntp_sysconfig_file }}"
+
+  notify:
+    - Enable ntp service
+    - Notify system to sync date with ntp
+  tags:
+    role::ntp
+    role::ntp::configure

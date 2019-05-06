@@ -1,2 +1,12 @@
 ---
 # Role handlers
+- name: Ntp service enable
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+  listen: Enable ntp service
+
+- name: Ntp activate sync with servers
+  command: /usr/bin/timedatectl set-ntp yes
+  listen: Notify system to sync date with ntp

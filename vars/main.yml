@@ -1,2 +1,4 @@
 ---
 # Role variables
+ntp_config_file: /etc/ntp.conf
+ntp_sysconfig_file: /etc/sysconfig/ntpd

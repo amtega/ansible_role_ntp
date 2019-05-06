@@ -1,2 +1,14 @@
 ---
 # Role default lower priority variables
+# Indicated default timezone. Valid values indicated in /usr/share/zoneinfo/
+ntp_time_zone: "Europe/Madrid"
+ntp_drift_file: /var/lib/ntp/drift
+ntp_init_options: "-u ntp:ntp -p /var/run/ntpd.pid -g -4"
+ntp_servers:
+  - 0.es.pool.ntp.org
+  - 3.europe.pool.ntp.org
+  - 0.europe.pool.ntp.org
+ntp_restrict_default: nomodify notrap nopeer noquery
+ntp_restrict_ips:
+  - 127.0.0.1
+  - ::1
