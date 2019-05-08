@@ -1,0 +1,18 @@
+---
+
+- block:
+    - name: Configure ntp
+      template:
+        src: ntp.conf.j2
+        dest: "{{ ntp_config_file }}"
+      notify:
+        - Enable ntp service
+    - name: Configure ntp init options
+      template:
+        src: ntpd_sysconfig.j2
+        dest: "{{ ntp_sysconfig_file }}"
+      notify:
+        - Enable ntp service
+  tags:
+    - role::ntp
+    - role::ntp::configure

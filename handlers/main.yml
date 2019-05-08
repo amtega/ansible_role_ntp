@@ -2,11 +2,16 @@
 # Role handlers
 - name: Ntp service enable
   service:
-    name: ntp
-    state: started
+    name: ntpd
+    state: restarted
     enabled: yes
+  when: ntp_clock_synchronize
   listen: Enable ntp service
 
-- name: Ntp activate sync with servers
-  command: /usr/bin/timedatectl set-ntp yes
-  listen: Notify system to sync date with ntp
+- name: Ntp service ntpdate enable
+  service:
+    name: ntpdate
+    state: started
+    enabled: yes
+  when: not ntp_clock_synchronize
+  listen: Enable ntpdate service

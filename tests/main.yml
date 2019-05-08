@@ -1,2 +1,46 @@
 ---
 # Tasks for testing role
+- name: Run idempotence test
+  hosts: localhost
+  roles:
+    - role: amtega.docker_presets
+      docker_presets_images_json_query: >-
+        [? starts_with(name, `centos-6`)
+           || starts_with(name, `centos-7`)
+           || starts_with(name, `fedora-27`)
+           || starts_with(name, `fedora-28`)]
+
+    - role: amtega.docker_sandbox
+      docker_sandbox_state: started
+  tags:
+    - sandbox
+
+- name: Test ntp role
+  hosts: docker_sandbox_containers
+  roles:
+    - role: amtega.ntp
+  tasks:
+    - meta: flush_handlers
+
+    - name: pause to wait for ntp synchronization. Adjust as you need.
+      pause:
+        minutes: 1
+
+    - name: Check NTP is running an synchronized
+      command: ntpstat
+      register: ntp_check
+      changed_when: no
+      failed_when: >-
+        not ntp_check.stdout
+        is search("synchronised to NTP server")
+  tags:
+    - idempotence
+
+- name: Cleanup docker docker sandbox
+  hosts: localhost
+  roles:
+    - role: amtega.docker_sandbox
+      docker_sandbox_state: absent
+  tags:
+    - cleanup
+    - sandbox

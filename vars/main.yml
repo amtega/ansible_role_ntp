@@ -2,3 +2,5 @@
 # Role variables
 ntp_config_file: /etc/ntp.conf
 ntp_sysconfig_file: /etc/sysconfig/ntpd
+ntpdate_config_file: /etc/ntp/step-tickers
+ntpdate_sysconfig_file: /etc/sysconfig/ntpdate

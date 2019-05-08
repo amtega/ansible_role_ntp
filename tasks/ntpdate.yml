@@ -1,0 +1,18 @@
+---
+
+- block:
+    - name: Configure ntpdate
+      template:
+        src: ntpdate_config.j2
+        dest: "{{ ntpdate_config_file }}"
+      notify:
+        - Enable ntpdate service
+    - name: Configure ntpdate init options
+      template:
+        src: ntpdate_sysconfig.j2
+        dest: "{{ ntpdate_sysconfig_file }}"
+      notify:
+        - Enable ntpdate service
+  tags:
+    - role::ntp
+    - role::ntp::ntpdate
