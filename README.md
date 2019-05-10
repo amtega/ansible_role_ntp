@@ -1,4 +1,4 @@
-# Ansible ocs_agent role
+# Ansible ntp role
 
 This is an [Ansible](http://www.ansible.com) role to install and configure Ntp clock synchronization.
 Include ntpdate configuration if you want use it instead ntp daemon.

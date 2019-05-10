@@ -8,7 +8,8 @@
         [? starts_with(name, `centos-6`)
            || starts_with(name, `centos-7`)
            || starts_with(name, `fedora-27`)
-           || starts_with(name, `fedora-28`)]
+           || starts_with(name, `fedora-28`)
+           || starts_with(name, `fedora-29`)]
 
     - role: amtega.docker_sandbox
       docker_sandbox_state: started
@@ -19,6 +20,8 @@
   hosts: docker_sandbox_containers
   roles:
     - role: amtega.ntp
+  vars:
+    ntp_clock_synchronize: true
   tasks:
     - meta: flush_handlers
 
@@ -33,6 +36,7 @@
       failed_when: >-
         not ntp_check.stdout
         is search("synchronised to NTP server")
+      when: ntp_clock_synchronize
   tags:
     - idempotence
 

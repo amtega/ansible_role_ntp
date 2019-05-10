@@ -37,6 +37,6 @@ ntp_clock_synchronize: true
 
 # Default values to fill ntpdate config files
 # Ntpdate parameters
-ntp_ntpdate_init_options: "-U ntp -s -b -u"
+ntp_ntpdate_init_options: "-s -b -u"
 # Indicate if ntpdate sync hw clock after successful execution
 ntp_ntpdate_hwclock_sync: "yes"
