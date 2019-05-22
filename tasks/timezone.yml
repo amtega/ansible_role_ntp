@@ -1,0 +1,8 @@
+---
+
+- name: Set timezone
+  timezone:
+    name: "{{ ntp_time_zone }}"
+  tags:
+    - role::ntp
+    - role::ntp::timezone

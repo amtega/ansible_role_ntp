@@ -1,2 +1,42 @@
 ---
 # Role default lower priority variables
+
+# Indicated default timezone. Valid values indicated in /usr/share/zoneinfo/
+ntp_time_zone: "Europe/Madrid"
+
+# Default values to fill ntp config files
+# Drift file defaul location
+ntp_drift_file: /var/lib/ntp/drift
+
+#List of ntp servers
+ntp_servers:
+  - hora.rediris.es
+  - cuco.rediris.es
+
+# String with server options. Defaut iburst for faster sync.
+ntp_server_options: "iburst"
+
+# String with default restrict options.
+# By defaut we permit time synchronization with our time source, but do not
+# permit the source to query or modify the service on this system.
+ntp_restrict_default: "nomodify notrap nopeer noquery"
+
+# List of default ips with are allowed to access to ntp without restrictions.
+# Default localhost.
+ntp_restrict_ips:
+  - 127.0.0.1
+  - ::1
+
+# Ntp daemon init paramns. Default -g to ignore gap betwen hwclock and ntp
+# server at first sync
+ntp_init_options: "-g"
+
+# Boolean. Indicates if clock synchronization uses ntp daemon or ntpdate command
+ntp_clock_synchronize: true
+
+
+# Default values to fill ntpdate config files
+# Ntpdate parameters
+ntp_ntpdate_init_options: "-s -b -u"
+# Indicate if ntpdate sync hw clock after successful execution
+ntp_ntpdate_hwclock_sync: "yes"

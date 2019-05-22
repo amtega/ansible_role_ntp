@@ -1,0 +1,26 @@
+---
+
+- block:
+    - name: Configure ntp
+      template:
+        src: ntp.conf.j2
+        dest: "{{ ntp_config_file }}"
+      notify:
+        - Enable ntp service
+
+    - name: Configure ntp init options
+      template:
+        src: ntpd_sysconfig.j2
+        dest: "{{ ntp_sysconfig_file }}"
+      notify:
+        - Enable ntp service
+
+    - name: Ensure ntpdate daemon is stopped before activate ntp
+      service:
+        name: ntpdate
+        state: stopped
+        enabled: no
+      when: ntp_clock_synchronize
+  tags:
+    - role::ntp
+    - role::ntp::configure
