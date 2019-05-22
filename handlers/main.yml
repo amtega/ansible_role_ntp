@@ -1,17 +1,18 @@
 ---
 # Role handlers
+
 - name: Ntp service enable
   service:
     name: ntpd
     state: restarted
     enabled: yes
-  when: ntp_clock_synchronize
-  listen: Enable ntp service
+  when: ntp_clock_sync
+  listen: enable ntp service
 
 - name: Ntp service ntpdate enable
   service:
     name: ntpdate
     state: started
     enabled: yes
-  when: not ntp_clock_synchronize
-  listen: Enable ntpdate service
+  when: not ntp_clock_sync
+  listen: enable ntpdate service

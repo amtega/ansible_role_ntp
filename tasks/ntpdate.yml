@@ -1,26 +1,28 @@
 ---
+# Tasks to configure ntpdate
 
 - block:
-    - name: Configure ntpdate
+    - name: Setup ntpdate config file
       template:
         src: ntpdate_config.j2
         dest: "{{ ntpdate_config_file }}"
       notify:
-        - Enable ntpdate service
+        - enable ntpdate service
 
-    - name: Configure ntpdate init options
+    - name: Setup ntpdate init options
       template:
         src: ntpdate_sysconfig.j2
         dest: "{{ ntpdate_sysconfig_file }}"
       notify:
-        - Enable ntpdate service
+        - enable ntpdate service
 
     - name: Ensure ntp daemon is stopped before activate ntpdate
       service:
         name: ntpd
         state: stopped
         enabled: no
-      when: not ntp_clock_synchronize
+      when: not ntp_clock_sync
   tags:
     - role::ntp
+    - role::ntp::configure
     - role::ntp::ntpdate
