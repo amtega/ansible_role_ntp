@@ -1,5 +1,6 @@
 ---
 # Tasks for testing role
+
 - name: Configure vagrant sandbox environment
   hosts: localhost
   roles:
@@ -26,22 +27,22 @@
   roles:
     - role: amtega.ntp
   vars:
-    ntp_clock_synchronize: true
+    ntp_clock_sync: true
   tasks:
     - meta: flush_handlers
 
-    - name: pause to wait for ntp synchronization. Adjust as you need.
+    - name: Pause to wait for ntp synchronization
       pause:
         minutes: 5
 
-    - name: Check NTP is running an synchronized
+    - name: Check if ntp is running an synchronized
       command: ntpstat
       register: ntp_check
       changed_when: no
       failed_when: >-
         not ntp_check.stdout
         is search("synchronised to NTP server")
-      when: ntp_clock_synchronize
+      when: ntp_clock_sync
   tags:
     - idempotence
 
