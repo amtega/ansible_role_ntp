@@ -16,12 +16,17 @@
       notify:
         - enable ntp service
 
+    - name: Gather service facts
+      service_facts:
+
     - name: Ensure ntpdate daemon is stopped before activate ntp
       service:
         name: ntpdate
         state: stopped
         enabled: no
-      when: ntp_clock_sync
+      when:
+        - '"ntpdate.service" in ansible_facts.services.keys() | list'
+        - ntp_clock_sync
   tags:
     - role::ntp
     - role::ntp::configure

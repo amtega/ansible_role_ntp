@@ -2,6 +2,11 @@
 # Tasks to configure ntpdate
 
 - block:
+    - name: Create directory for ntpdate config file
+      file:
+        path: "{{ ntpdate_config_file | dirname }}"
+        state: directory
+
     - name: Setup ntpdate config file
       template:
         src: ntpdate_config.j2
@@ -21,7 +26,9 @@
         name: ntpd
         state: stopped
         enabled: no
-      when: not ntp_clock_sync
+      when:
+        - '"ntpd.service" in ansible_facts.services.keys() | list'
+        - not ntp_clock_sync
   tags:
     - role::ntp
     - role::ntp::configure
