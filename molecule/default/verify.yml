@@ -1,0 +1,20 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: molecule_hosts
+  tasks:
+    - meta: flush_handlers
+
+    - name: Pause to wait for ntp synchronization
+      pause:
+        minutes: 5
+
+    - name: Check if ntp is running an synchronized
+      command: ntpstat
+      register: ntp_check
+      changed_when: no
+      failed_when: >-
+        not ntp_check.stdout
+        is search("synchronised to NTP server")
+      when: ntp_clock_sync
