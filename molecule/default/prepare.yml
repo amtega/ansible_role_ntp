@@ -1,0 +1,9 @@
+---
+
+- name: Prepare testing environment python
+  hosts: molecule_hosts_centos_6
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Setup packages
+      raw: yum install -y libselinux-python

@@ -3,7 +3,9 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: virtualbox
 lint: |
   set -e
   export ANSIBLE_ACTION_PLUGINS=$PWD/action_plugins
@@ -28,31 +30,29 @@ lint: |
   flake8
 platforms:
   - name: "centos6-${INSTANCE_UUID:-1}"
-    image: centos:6
+    box: centos/6
+    memory: 1024
     groups:
       - molecule_hosts
       - molecule_hosts_centos
       - molecule_hosts_centos_6
   - name: "centos7-${INSTANCE_UUID:-1}"
-    image: centos:7
+    box: centos/7
+    memory: 1024
     groups:
       - molecule_hosts
       - molecule_hosts_centos
       - molecule_hosts_centos_7
-  - name: "centos8-${INSTANCE_UUID:-1}"
-    image: centos:8
-    groups:
-      - molecule_hosts
-      - molecule_hosts_centos
-      - molecule_hosts_centos_8
   - name: "fedora29-${INSTANCE_UUID:-1}"
-    image: fedora:29
+    box: fedora/29-cloud-base
+    memory: 1024
     groups:
       - molecule_hosts
       - molecule_hosts_fedora
       - molecule_hosts_fedora_29
   - name: "fedora30-${INSTANCE_UUID:-1}"
-    image: fedora:30
+    box: fedora/30-cloud-base
+    memory: 1024
     groups:
       - molecule_hosts
       - molecule_hosts_fedora
@@ -67,7 +67,6 @@ provisioner:
     hosts:
       molecule_hosts:
         vars:
-          issue_message: This is the issue
-          issue_net_message: Here is the issue on the net
+          ntp_clock_sync: true
 verifier:
   name: ansible

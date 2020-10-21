@@ -2,9 +2,7 @@
 
 - name: Converge
   hosts: molecule_hosts
-  tasks:
-    - name: "Include amtega.ntp"
-      include_role:
-        name: "amtega.ntp"
-      vars:
-        ntp_clock_sync: true
+  gather_facts: yes
+  become: yes
+  roles:
+    - amtega.ntp
