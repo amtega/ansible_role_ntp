@@ -32,6 +32,14 @@ platforms:
   - name: "centos6-${INSTANCE_UUID:-1}"
     box: centos/6
     memory: 1024
+    provider_options:
+      gui: false
+    provider_raw_config_args:
+      # Disable video
+      - 'customize ["modifyvm", :id, "--graphicscontroller", "none"]'
+      - 'customize ["modifyvm", :id, "--vram", "0"]'
+      # Disable audio
+      - 'customize ["modifyvm", :id, "--audio", "none"]'
     groups:
       - molecule_hosts
       - molecule_hosts_centos
@@ -39,6 +47,14 @@ platforms:
   - name: "centos7-${INSTANCE_UUID:-1}"
     box: centos/7
     memory: 1024
+    provider_options:
+      gui: false
+    provider_raw_config_args:
+      # Disable video
+      - 'customize ["modifyvm", :id, "--graphicscontroller", "none"]'
+      - 'customize ["modifyvm", :id, "--vram", "0"]'
+      # Disable audio
+      - 'customize ["modifyvm", :id, "--audio", "none"]'
     groups:
       - molecule_hosts
       - molecule_hosts_centos
@@ -53,6 +69,14 @@ platforms:
   - name: "fedora30-${INSTANCE_UUID:-1}"
     box: fedora/30-cloud-base
     memory: 1024
+    provider_options:
+      gui: false
+    provider_raw_config_args:
+      # Disable video
+      - 'customize ["modifyvm", :id, "--graphicscontroller", "none"]'
+      - 'customize ["modifyvm", :id, "--vram", "0"]'
+      # Disable audio
+      - 'customize ["modifyvm", :id, "--audio", "none"]'
     groups:
       - molecule_hosts
       - molecule_hosts_fedora
