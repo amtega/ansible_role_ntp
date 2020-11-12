@@ -7,3 +7,4 @@
   tasks:
     - name: Setup packages
       raw: yum install -y libselinux-python
+      when: yes
