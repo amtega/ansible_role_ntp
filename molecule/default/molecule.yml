@@ -12,14 +12,8 @@ platforms:
   - name: "centos6-${INSTANCE_UUID:-1}"
     box: centos/6
     memory: 1024
-    provider_options:
-      gui: false
-    provider_raw_config_args:
-      # Disable video
-      - 'customize ["modifyvm", :id, "--graphicscontroller", "none"]'
-      - 'customize ["modifyvm", :id, "--vram", "0"]'
-      # Disable audio
-      - 'customize ["modifyvm", :id, "--audio", "none"]'
+    instance_raw_config_args:
+      - "vm.boot_timeout = 600"
     groups:
       - molecule_hosts
       - molecule_hosts_centos
