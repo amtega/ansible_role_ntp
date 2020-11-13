@@ -72,5 +72,6 @@ provisioner:
       molecule_hosts:
         vars:
           ntp_clock_sync: yes
+          ntp_in_slew_mode: yes
 verifier:
   name: ansible

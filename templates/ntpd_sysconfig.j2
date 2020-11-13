@@ -1,4 +1,8 @@
 {{ ansible_managed | comment }}
 
 # Command line options for ntpd
+{% if ntp_in_slew_mode %}
+OPTIONS="{{ ntp_init_options }} -x"
+{% else %}
 OPTIONS="{{ ntp_init_options }}"
+{% endif %}
