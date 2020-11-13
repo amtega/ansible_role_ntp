@@ -17,3 +17,11 @@
         not ntp_check.stdout
         is search("synchronised to NTP server")
       when: ntp_clock_sync
+    - name: Check ntpd is running in slew mode (ntpd -x)
+      shell: |-
+        set -o pipefail
+        ps aux \
+        | grep "[n]tpd.* -x$"
+      changed_when: no
+      register: ntpd_in_slew_mode_result
+      failed_when: ntpd_in_slew_mode_result.rc != 0
