@@ -25,5 +25,5 @@
       changed_when: no
       register: ntpd_in_slew_mode_result
       failed_when: >-
-        ntp_in_slew_mode and ntpd_in_slew_mode_result.rc != 0
-        or not ntp_in_slew_mode and ntpd_in_slew_mode_result.rc == 0
+        ntp_slew_mode and ntpd_in_slew_mode_result.rc != 0
+        or not ntp_slew_mode and ntpd_in_slew_mode_result.rc == 0

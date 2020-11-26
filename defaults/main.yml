@@ -42,9 +42,9 @@ ntp_init_options: "-g"
 ntp_clock_sync: yes
 
 # If true ntp daemon will run in slew mode ("smooth" changes over time, example:
-#   leap second)
+# leap second)
 
-ntp_in_slew_mode: no
+ntp_slew_mode: no
 
 # ntpdate parameters
 
