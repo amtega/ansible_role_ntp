@@ -6,6 +6,9 @@
       template:
         src: ntp.conf.j2
         dest: "{{ ntp_config_file }}"
+        owner: root
+        group: root
+        mode: 0644
       notify:
         - enable ntp service
 
@@ -13,6 +16,9 @@
       template:
         src: ntpd_sysconfig.j2
         dest: "{{ ntp_sysconfig_file }}"
+        owner: root
+        group: root
+        mode: 0644
       notify:
         - enable ntp service
 

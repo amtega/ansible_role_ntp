@@ -5,12 +5,18 @@
     - name: Create directory for ntpdate config file
       file:
         path: "{{ ntpdate_config_file | dirname }}"
+        owner: root
+        group: root
+        mode: 0755
         state: directory
 
     - name: Setup ntpdate config file
       template:
         src: ntpdate_config.j2
         dest: "{{ ntpdate_config_file }}"
+        owner: root
+        group: root
+        mode: 0644
       notify:
         - enable ntpdate service
 
@@ -18,6 +24,9 @@
       template:
         src: ntpdate_sysconfig.j2
         dest: "{{ ntpdate_sysconfig_file }}"
+        owner: root
+        group: root
+        mode: 0644
       notify:
         - enable ntpdate service
 

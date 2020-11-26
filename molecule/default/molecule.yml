@@ -6,8 +6,7 @@ driver:
   name: vagrant
   provider:
     name: virtualbox
-lint: |
-  ${MOLECULE_SCENARIO_DIRECTORY}/molecule_linters.sh
+lint: "${MOLECULE_SCENARIO_DIRECTORY}/linters.sh"
 platforms:
   - name: "centos7-${INSTANCE_UUID:-1}"
     box: centos/7
@@ -57,6 +56,6 @@ provisioner:
       molecule_hosts:
         vars:
           ntp_clock_sync: yes
-          ntp_in_slew_mode: yes
+          ntp_slew_mode: yes
 verifier:
   name: ansible
