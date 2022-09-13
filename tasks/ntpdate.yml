@@ -1,9 +1,9 @@
 ---
-# Tasks to configure ntpdate
 
-- block:
+- name: Configure ntpdate
+  block:
     - name: Create directory for ntpdate config file
-      file:
+      ansible.builtin.file:
         path: "{{ ntpdate_config_file | dirname }}"
         owner: root
         group: root
@@ -11,7 +11,7 @@
         state: directory
 
     - name: Setup ntpdate config file
-      template:
+      ansible.builtin.template:
         src: ntpdate_config.j2
         dest: "{{ ntpdate_config_file }}"
         owner: root
@@ -21,7 +21,7 @@
         - enable ntpdate service
 
     - name: Setup ntpdate init options
-      template:
+      ansible.builtin.template:
         src: ntpdate_sysconfig.j2
         dest: "{{ ntpdate_sysconfig_file }}"
         owner: root
@@ -31,7 +31,7 @@
         - enable ntpdate service
 
     - name: Ensure ntp daemon is stopped before activate ntpdate
-      service:
+      ansible.builtin.service:
         name: ntpd
         state: stopped
         enabled: no

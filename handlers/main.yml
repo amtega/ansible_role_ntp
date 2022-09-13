@@ -2,7 +2,7 @@
 # Role handlers
 
 - name: Ntp service enable
-  service:
+  ansible.builtin.service:
     name: ntpd
     state: restarted
     enabled: yes
@@ -10,7 +10,7 @@
   listen: enable ntp service
 
 - name: Ntp service ntpdate enable
-  service:
+  ansible.builtin.service:
     name: ntpdate
     state: started
     enabled: yes

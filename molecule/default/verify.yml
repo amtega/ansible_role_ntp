@@ -6,20 +6,20 @@
   become: yes
   tasks:
     - name: Pause to wait for ntp synchronization
-      pause:
+      ansible.builtin.pause:
         minutes: 1
 
     - name: Check if ntp is running an synchronized
-      command: ntpstat
+      ansible.builtin.command: ntpstat
       register: ntp_check
       changed_when: no
       failed_when: >-
         not ntp_check.stdout
         is search("synchronised to NTP server")
       when: ntp_clock_sync
-      
+
     - name: Check ntpd is running in slew mode (ntpd -x)
-      shell: |-
+      ansible.builtin.shell: |-
         set -o pipefail
         ps aux \
         | grep "[n]tpd.* -x$"
