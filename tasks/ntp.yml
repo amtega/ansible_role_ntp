@@ -1,9 +1,9 @@
 ---
-# Tasks to configure ntp
 
-- block:
+- name: Configure ntp
+  block:
     - name: Setup ntp config file
-      template:
+      ansible.builtin.template:
         src: ntp.conf.j2
         dest: "{{ ntp_config_file }}"
         owner: root
@@ -13,7 +13,7 @@
         - enable ntp service
 
     - name: Configure ntp init options
-      template:
+      ansible.builtin.template:
         src: ntpd_sysconfig.j2
         dest: "{{ ntp_sysconfig_file }}"
         owner: root
@@ -23,10 +23,10 @@
         - enable ntp service
 
     - name: Gather service facts
-      service_facts:
+      ansible.builtin.service_facts:
 
     - name: Ensure ntpdate daemon is stopped before activate ntp
-      service:
+      ansible.builtin.service:
         name: ntpdate
         state: stopped
         enabled: no
